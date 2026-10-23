@@ -24,7 +24,7 @@ interface User {
   name: string
   email: string
   password?: string
-  role: 'author'
+  role: 'author' | 'reviewer'
 }
 
 interface Submission {
@@ -46,6 +46,7 @@ interface ActivityItem {
 // ─────────────────────────────────────────
 const usersDB: User[] = [
   { name: 'Rina Ahmad', email: 'rina@email.com', password: 'password123', role: 'author' },
+  { name: 'Dr. Budi Santoso', email: 'budi.santoso@univ.ac.id', password: 'password123', role: 'reviewer' },
 ]
 
 const submissionsDB: Submission[] = [
@@ -346,6 +347,9 @@ function renderNavbar(): string {
       </div>`
     : `
       <div class="navbar-actions">
+        <a href="/reviewer.html" class="btn btn-sm" id="btn-reviewer-nav" style="background:#f0f9ff; color:#0284c7; border:1px solid #bae6fd; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+          Portal Reviewer
+        </a>
         <button class="btn btn-outline btn-sm" id="btn-masuk">Masuk</button>
       </div>`
 
@@ -1219,6 +1223,10 @@ function attachEventListeners() {
     const matchedUser = usersDB.find((u) => u.email.toLowerCase() === email.toLowerCase())
     if (matchedUser && matchedUser.password === password) {
       currentUser = matchedUser
+      if (currentUser.role === 'reviewer') {
+        window.location.href = '/reviewer.html'
+        return
+      }
     } else {
       currentUser = { name: email.split('@')[0], email, role: 'author' }
       usersDB.push(currentUser)
@@ -1341,4 +1349,8 @@ function attachEventListeners() {
 // ─────────────────────────────────────────
 // INITIALIZE
 // ─────────────────────────────────────────
-renderApp()
+if (window.location.hash === '#reviewer' || window.location.search.includes('reviewer')) {
+  window.location.href = '/reviewer.html'
+} else {
+  renderApp()
+}
