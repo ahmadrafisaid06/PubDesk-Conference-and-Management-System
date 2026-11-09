@@ -29,10 +29,25 @@ interface User {
 
 interface Submission {
   id: string
+  paperId: string
   title: string
+  authors: string
+  affiliation: string
+  category: string
   conference: string
-  status: 'Under Review' | 'Accepted' | 'Revision' | 'Rejected'
+  status: 'Under Review' | 'Accepted' | 'Revision' | 'Submitted' | 'Rejected'
   submittedAt: string
+  abstract?: string
+  keywords?: string
+  manuscriptFile?: string
+  reviewerNotes?: { reviewer: string; note: string }[]
+  revisionDeadline?: string
+  publicationInfo?: {
+    proceedings: string
+    isbn: string
+    doi: string
+    deadline: string
+  }
 }
 
 interface ActivityItem {
@@ -51,10 +66,108 @@ const usersDB: User[] = [
 ]
 
 const submissionsDB: Submission[] = [
-  { id: 's1', title: 'AI untuk Deteksi Dini Penyakit', conference: 'ICAI 2027', status: 'Under Review', submittedAt: 'Hari ini, 09:42' },
-  { id: 's2', title: 'Sistem Informasi Desa Cerdas', conference: 'SNTI 2027', status: 'Accepted', submittedAt: '10 Okt, 14:20' },
-  { id: 's3', title: 'Keamanan Data pada IoT', conference: 'ICTI 2026', status: 'Revision', submittedAt: '5 Okt, 11:00' },
-  { id: 's4', title: 'Optimasi Query Graph Database', conference: 'ICSD 2026', status: 'Under Review', submittedAt: '1 Okt, 08:15' },
+  {
+    id: 's1',
+    paperId: 'PD-1042',
+    title: 'AI untuk Deteksi Dini Penyakit',
+    authors: 'Rina Ahmad, Dimas Putra',
+    affiliation: 'Universitas Indonesia',
+    category: 'Artificial Intelligence',
+    conference: 'ICTI 2026',
+    status: 'Under Review',
+    submittedAt: '20 Okt 2026',
+    abstract: 'Penelitian ini mengembangkan model kecerdasan buatan berbasis deep learning untuk mendeteksi dini penyakit dari citra medis dengan tingkat akurasi tinggi.',
+    keywords: 'artificial intelligence, healthcare',
+    manuscriptFile: 'manuscript_PD1042.pdf',
+    reviewerNotes: [
+      {
+        reviewer: 'Catatan reviewer',
+        note: 'Metodologi sudah relevan, namun penulis perlu memperjelas sumber dataset, menambahkan evaluasi pembanding, dan memperbaiki format sitasi.'
+      },
+      {
+        reviewer: 'Reviewer 2',
+        note: 'Hasil eksperimen menjanjikan. Mohon sertakan pembahasan keterbatasan model dan validasi eksternal.'
+      }
+    ],
+    revisionDeadline: '30 Okt 2026',
+    publicationInfo: {
+      proceedings: 'ICTI 2026',
+      isbn: '978-602-456-789-0',
+      doi: 'Segera tersedia',
+      deadline: '6 Nov 2026'
+    }
+  },
+  {
+    id: 's2',
+    paperId: 'PD-1038',
+    title: 'Sistem Informasi Desa Cerdas Berbasis Cloud',
+    authors: 'Rina Ahmad, Dimas Putra',
+    affiliation: 'Universitas Indonesia',
+    category: 'Information Systems',
+    conference: 'ICTI 2026',
+    status: 'Accepted',
+    submittedAt: '18 Okt 2026',
+    abstract: 'Implementasi arsitektur komputasi awan untuk tata kelola layanan informasi desa cerdas dan integrasi kependudukan terpadu.',
+    keywords: 'smart village, cloud computing',
+    manuscriptFile: 'manuscript_PD1038.pdf',
+    publicationInfo: {
+      proceedings: 'ICTI 2026',
+      isbn: '978-602-456-789-0',
+      doi: 'Segera tersedia',
+      deadline: '6 Nov 2026'
+    }
+  },
+  {
+    id: 's3',
+    paperId: 'PD-1031',
+    title: 'Keamanan Data pada IoT',
+    authors: 'Rina Ahmad, Dimas Putra',
+    affiliation: 'Universitas Indonesia',
+    category: 'Cyber Security',
+    conference: 'ICTI 2026',
+    status: 'Revision',
+    submittedAt: '16 Okt 2026',
+    abstract: 'Analisis protokol enkripsi ringan untuk perlindungan privasi dan keamanan data pada perangkat IoT berdaya rendah.',
+    keywords: 'iot security, encryption',
+    manuscriptFile: 'manuscript_PD1031.pdf',
+    reviewerNotes: [
+      {
+        reviewer: 'Catatan reviewer',
+        note: 'Metodologi sudah relevan, namun penulis perlu memperjelas sumber dataset, menambahkan evaluasi pembanding, dan memperbaiki format sitasi.'
+      },
+      {
+        reviewer: 'Reviewer 2',
+        note: 'Hasil eksperimen menjanjikan. Mohon sertakan pembahasan keterbatasan model dan validasi eksternal.'
+      }
+    ],
+    revisionDeadline: '30 Okt 2026',
+    publicationInfo: {
+      proceedings: 'ICTI 2026',
+      isbn: '978-602-456-789-0',
+      doi: 'Segera tersedia',
+      deadline: '6 Nov 2026'
+    }
+  },
+  {
+    id: 's4',
+    paperId: 'PD-1026',
+    title: 'Model Pembelajaran Adaptif Berbasis AI',
+    authors: 'Rina Ahmad, Dimas Putra',
+    affiliation: 'Universitas Indonesia',
+    category: 'Artificial Intelligence',
+    conference: 'ICTI 2026',
+    status: 'Submitted',
+    submittedAt: '14 Okt 2026',
+    abstract: 'Penerapan algoritma machine learning untuk memetakan jalur belajar personal bagi mahasiswa.',
+    keywords: 'adaptive learning, artificial intelligence',
+    manuscriptFile: 'manuscript_PD1026.pdf',
+    publicationInfo: {
+      proceedings: 'ICTI 2026',
+      isbn: '978-602-456-789-0',
+      doi: 'Segera tersedia',
+      deadline: '6 Nov 2026'
+    }
+  }
 ]
 
 const activityLogDB: ActivityItem[] = [
@@ -294,17 +407,27 @@ const icons = {
     <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
     <polyline points="9 22 9 12 15 12 15 22"/>
   </svg>`,
+  cloudUpload: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/>
+    <path d="M12 12v9"/>
+    <path d="m16 16-4-4-4 4"/>
+  </svg>`,
 }
 
 // ─────────────────────────────────────────
 // APP STATE
 // ─────────────────────────────────────────
 type PageType = 'home' | 'detail' | 'login' | 'register' | 'dashboard'
+type AuthorView = 'dashboard' | 'my-submissions' | 'submit-paper' | 'review-detail' | 'final-paper'
 
 let currentUser: User | null = null
 let currentPage: PageType = 'home'
+let authorCurrentView: AuthorView = 'my-submissions'
+let selectedPaperId: string = 'PD-1042'
+let submissionsSearchQuery: string = ''
+let submissionsStatusFilter: string = 'all'
 let currentConf: Conference = conferences[0]
-let activeModal: 'submit-paper' | 'my-submissions' | 'profile' | 'about' | null = null
+let activeModal: 'profile' | 'about' | null = null
 
 const appEl = document.querySelector<HTMLDivElement>('#app')!
 
@@ -375,7 +498,7 @@ function renderNavbar(): string {
 }
 
 // ─────────────────────────────────────────
-// RENDER: HOMEPAGE (LANDING PAGE SESUAI SCREENSHOT 1)
+// RENDER: HOMEPAGE (LANDING PAGE)
 // ─────────────────────────────────────────
 function renderHomepage(): string {
   const confCards = conferences
@@ -455,7 +578,7 @@ function renderHomepage(): string {
 }
 
 // ─────────────────────────────────────────
-// RENDER: CONFERENCE DETAIL (SESUAI SCREENSHOT 2 & 3)
+// RENDER: CONFERENCE DETAIL 
 // ─────────────────────────────────────────
 function renderDetailPage(conf: Conference): string {
   const deadlinesHTML = conf.deadlines
@@ -632,7 +755,7 @@ function renderDetailPage(conf: Conference): string {
 }
 
 // ─────────────────────────────────────────
-// RENDER: LOGIN PAGE (DENGAN TOMBOL KEMBALI LEBIH RAPI & ENAK DIPANDANG)
+// RENDER: LOGIN PAGE 
 // ─────────────────────────────────────────
 function renderLoginPage(): string {
   return `
@@ -676,7 +799,7 @@ function renderLoginPage(): string {
 }
 
 // ─────────────────────────────────────────
-// RENDER: REGISTER PAGE (DENGAN TOMBOL KEMBALI LEBIH RAPI & ENAK DIPANDANG)
+// RENDER: REGISTER PAGE 
 // ─────────────────────────────────────────
 function renderRegisterPage(): string {
   return `
@@ -721,23 +844,22 @@ function renderRegisterPage(): string {
 }
 
 // ─────────────────────────────────────────
-// RENDER: DASHBOARD (AUTHOR / PESERTA)
+// RENDER: AUTHOR DASHBOARD VIEWS
 // ─────────────────────────────────────────
-function renderDashboardPage(): string {
-  const userName = currentUser ? currentUser.name : 'Rina Ahmad'
-
+function renderDashboardOverview(userName: string): string {
   const submissionItemsHTML = submissionsDB
     .map((s) => {
       let badgeClass = 'badge-under-review'
       if (s.status === 'Accepted') badgeClass = 'badge-accepted'
       else if (s.status === 'Revision') badgeClass = 'badge-revision'
+      else if (s.status === 'Submitted') badgeClass = 'badge-submitted'
       else if (s.status === 'Rejected') badgeClass = 'badge-rejected'
 
       return `
       <div class="submission-item">
         <div class="submission-info">
           <span class="submission-title">${s.title}</span>
-          <span class="submission-meta">${s.conference} • ${s.submittedAt}</span>
+          <span class="submission-meta">${s.paperId} • ${s.conference} • ${s.submittedAt}</span>
         </div>
         <div>
           <span class="badge-pill ${badgeClass}">${s.status}</span>
@@ -765,6 +887,434 @@ function renderDashboardPage(): string {
   const revisionCount = submissionsDB.filter((s) => s.status === 'Revision').length
 
   return `
+  <!-- WELCOME GREETING -->
+  <div class="dash-welcome">
+    <h2>Halo, ${userName}!</h2>
+    <p>Pantau status paper dan aktivitas konferensi Anda.</p>
+  </div>
+
+  <!-- 4 STATS CARDS -->
+  <div class="dash-stats-grid">
+    <div class="dash-stat-card">
+      <div class="dash-stat-icon-wrap">
+        ${icons.document}
+      </div>
+      <div>
+        <div class="dash-stat-number">${totalPaper}</div>
+        <div class="dash-stat-label">Total Paper</div>
+      </div>
+    </div>
+
+    <div class="dash-stat-card">
+      <div class="dash-stat-icon-wrap">
+        ${icons.clock}
+      </div>
+      <div>
+        <div class="dash-stat-number">${underReviewCount}</div>
+        <div class="dash-stat-label">Under Review</div>
+      </div>
+    </div>
+
+    <div class="dash-stat-card">
+      <div class="dash-stat-icon-wrap">
+        ${icons.checkCircle}
+      </div>
+      <div>
+        <div class="dash-stat-number">${acceptedCount}</div>
+        <div class="dash-stat-label">Diterima</div>
+      </div>
+    </div>
+
+    <div class="dash-stat-card">
+      <div class="dash-stat-icon-wrap">
+        ${icons.alertCircle}
+      </div>
+      <div>
+        <div class="dash-stat-number">${revisionCount}</div>
+        <div class="dash-stat-label">Perlu Revisi</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 COLUMNS: SUBMISSION STATUS & AKTIVITAS -->
+  <div class="dash-grid-2col">
+    <div class="dash-box">
+      <div class="dash-box-header">
+        <h3 class="dash-box-title">Status submission</h3>
+        <a href="#" class="dash-box-link" id="link-view-all-submissions">Lihat semua</a>
+      </div>
+      <div class="submission-list">
+        ${submissionItemsHTML}
+      </div>
+      <div style="margin-top:20px; padding-top:14px; border-top:1px solid #f1f5f9; display:flex; justify-content:flex-end;">
+        <button class="btn btn-primary btn-sm" id="btn-quick-submit" style="display:inline-flex; align-items:center; gap:6px;">
+          ${icons.send} Submit Paper Baru
+        </button>
+      </div>
+    </div>
+
+    <div class="dash-box">
+      <div class="dash-box-header">
+        <h3 class="dash-box-title">Aktivitas terbaru</h3>
+      </div>
+      <div class="activity-list">
+        ${activityItemsHTML}
+      </div>
+    </div>
+  </div>`
+}
+
+// ─────────────────────────────────────────
+// RENDER: SUBMIT PAPER VIEW 
+// ─────────────────────────────────────────
+function renderSubmitPaperView(userName: string): string {
+  return `
+  <div class="author-page-container">
+    <div class="author-form-card">
+      <form id="author-submit-form">
+        <!-- Row 1: Judul paper & Kategori -->
+        <div class="author-form-grid-2">
+          <div class="author-form-group">
+            <label class="author-form-label" for="submit-paper-title">Judul paper</label>
+            <input type="text" class="author-form-control" id="submit-paper-title" placeholder="Masukkan judul paper" required />
+          </div>
+          <div class="author-form-group">
+            <label class="author-form-label" for="submit-paper-category">Kategori</label>
+            <select class="author-form-control author-select" id="submit-paper-category" required>
+              <option value="" disabled selected>Pilih kategori</option>
+              <option value="Artificial Intelligence">Artificial Intelligence</option>
+              <option value="Information Systems">Information Systems</option>
+              <option value="Cyber Security">Cyber Security</option>
+              <option value="Digital Innovation">Digital Innovation</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Internet of Things">Internet of Things</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Row 2: Abstrak -->
+        <div class="author-form-group">
+          <label class="author-form-label" for="submit-paper-abstract">Abstrak</label>
+          <textarea class="author-form-control author-textarea" id="submit-paper-abstract" rows="4" placeholder="Tuliskan abstrak singkat paper Anda" required></textarea>
+        </div>
+
+        <!-- Row 3: Kata kunci -->
+        <div class="author-form-group">
+          <label class="author-form-label" for="submit-paper-keywords">Kata kunci</label>
+          <input type="text" class="author-form-control" id="submit-paper-keywords" placeholder="Contoh: artificial intelligence, healthcare" required />
+        </div>
+
+        <!-- Row 4: Nama penulis & Afiliasi -->
+        <div class="author-form-grid-2">
+          <div class="author-form-group">
+            <label class="author-form-label" for="submit-paper-author">Nama penulis</label>
+            <input type="text" class="author-form-control" id="submit-paper-author" value="${userName}" required />
+          </div>
+          <div class="author-form-group">
+            <label class="author-form-label" for="submit-paper-affiliation">Afiliasi</label>
+            <input type="text" class="author-form-control" id="submit-paper-affiliation" value="Universitas Indonesia" required />
+          </div>
+        </div>
+
+        <!-- Row 5: Unggah manuscript -->
+        <div class="author-upload-dropzone" id="dropzone-manuscript-box" role="button" tabindex="0" title="Klik untuk mengunggah manuscript">
+          <input type="file" id="input-manuscript-file" accept=".pdf" style="display:none;" />
+          <div class="author-upload-icon-wrap">
+            ${icons.cloudUpload}
+          </div>
+          <div class="author-upload-maintext">Unggah manuscript</div>
+          <div class="author-upload-subtext">PDF, maksimal 10 MB</div>
+          <div class="author-upload-feedback" id="manuscript-file-display" style="display:none;"></div>
+        </div>
+
+        <!-- Row 6: Submit Button -->
+        <div class="author-form-footer">
+          <button type="submit" class="btn-author-dark" id="btn-submit-paper-form">
+            Submit Paper
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>`
+}
+
+// ─────────────────────────────────────────
+// RENDER: MY SUBMISSIONS VIEW 
+// ─────────────────────────────────────────
+function renderMySubmissionsView(): string {
+  const filtered = submissionsDB.filter((sub) => {
+    const q = submissionsSearchQuery.trim().toLowerCase()
+    const matchesSearch = !q || sub.paperId.toLowerCase().includes(q) || sub.title.toLowerCase().includes(q)
+    const matchesStatus = submissionsStatusFilter === 'all' || sub.status === submissionsStatusFilter
+    return matchesSearch && matchesStatus
+  })
+
+  const rowsHtml = filtered.length > 0
+    ? filtered
+        .map((sub) => {
+          let badgeClass = 'badge-under-review'
+          if (sub.status === 'Accepted') badgeClass = 'badge-accepted'
+          else if (sub.status === 'Revision') badgeClass = 'badge-revision'
+          else if (sub.status === 'Submitted') badgeClass = 'badge-submitted'
+          else if (sub.status === 'Rejected') badgeClass = 'badge-rejected'
+
+          // Shorten title if long as shown in screenshot (e.g. "AI untuk Deteksi Dini Pe...")
+          const truncatedTitle = sub.title.length > 27 ? sub.title.slice(0, 25) + '...' : sub.title
+
+          return `
+          <tr class="author-table-row">
+            <td class="author-cell-id">${sub.paperId}</td>
+            <td class="author-cell-title" title="${sub.title}">${truncatedTitle}</td>
+            <td class="author-cell-date">${sub.submittedAt}</td>
+            <td class="author-cell-status">
+              <span class="badge-pill ${badgeClass}">${sub.status}</span>
+            </td>
+            <td class="author-cell-action" style="text-align: right;">
+              <button class="author-btn-action-view" data-paper-id="${sub.paperId}">Lihat</button>
+            </td>
+          </tr>`
+        })
+        .join('')
+    : `<tr><td colspan="5" style="text-align:center; padding:36px; color:#94a3b8;">Tidak ada submission yang sesuai filter.</td></tr>`
+
+  return `
+  <div class="author-page-container">
+    <!-- Toolbar: Search & Filter -->
+    <div class="author-filter-toolbar">
+      <div class="author-search-wrapper">
+        <input
+          type="text"
+          class="author-search-input"
+          id="submissions-search-input"
+          placeholder="Cari judul atau ID paper"
+          value="${submissionsSearchQuery}"
+        />
+      </div>
+      <div class="author-filter-dropdown-wrapper">
+        <select class="author-filter-dropdown" id="submissions-filter-status">
+          <option value="all" ${submissionsStatusFilter === 'all' ? 'selected' : ''}>Semua status</option>
+          <option value="Under Review" ${submissionsStatusFilter === 'Under Review' ? 'selected' : ''}>Under Review</option>
+          <option value="Accepted" ${submissionsStatusFilter === 'Accepted' ? 'selected' : ''}>Accepted</option>
+          <option value="Revision" ${submissionsStatusFilter === 'Revision' ? 'selected' : ''}>Revision</option>
+          <option value="Submitted" ${submissionsStatusFilter === 'Submitted' ? 'selected' : ''}>Submitted</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="author-table-card">
+      <table class="author-submissions-table">
+        <thead>
+          <tr>
+            <th style="width: 15%;">ID PAPER</th>
+            <th style="width: 44%;">JUDUL PAPER</th>
+            <th style="width: 17%;">TANGGAL</th>
+            <th style="width: 14%;">STATUS</th>
+            <th style="width: 10%; text-align: right;">AKSI</th>
+          </tr>
+        </thead>
+        <tbody id="submissions-table-body">
+          ${rowsHtml}
+        </tbody>
+      </table>
+    </div>
+  </div>`
+}
+
+// ─────────────────────────────────────────
+// RENDER: REVIEW DETAIL VIEW 
+// ─────────────────────────────────────────
+function renderReviewDetailView(): string {
+  const sub = submissionsDB.find((s) => s.paperId === selectedPaperId) || submissionsDB[0]
+
+  return `
+  <div class="author-page-container">
+    <div style="margin-bottom: 16px;">
+      <button class="author-btn-back" id="btn-back-to-submissions">
+        ${icons.arrowLeft} Kembali ke My Submissions
+      </button>
+    </div>
+
+    <div class="author-review-columns">
+      <!-- Left Card -->
+      <div class="author-white-card">
+        <h2 class="author-card-main-title">${sub.title}</h2>
+        <div class="author-card-subtitle">${sub.authors} • ${sub.affiliation}</div>
+        <div style="margin: 10px 0 24px;">
+          <span class="badge-pill badge-revision">Revision required</span>
+        </div>
+
+        <div class="author-meta-block">
+          <h3 class="author-meta-heading">Metadata submission</h3>
+          <div class="author-meta-item">
+            <span class="author-meta-key">Paper ID</span>
+            <span class="author-meta-value">${sub.paperId}</span>
+          </div>
+          <div class="author-meta-item">
+            <span class="author-meta-key">Track</span>
+            <span class="author-meta-value">${sub.category}</span>
+          </div>
+          <div class="author-meta-item">
+            <span class="author-meta-key">Submitted</span>
+            <span class="author-meta-value">${sub.submittedAt}</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 32px;">
+          <button class="author-btn-outline" id="btn-unduh-manuscript" data-paper-id="${sub.paperId}">
+            Unduh manuscript
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Card -->
+      <div class="author-white-card">
+        <h3 class="author-card-sec-title">Catatan reviewer</h3>
+        <p class="author-card-paragraph">
+          Metodologi sudah relevan, namun penulis perlu memperjelas sumber dataset, menambahkan evaluasi pembanding, dan memperbaiki format sitasi.
+        </p>
+
+        <h4 class="author-card-sec-title" style="font-size: 14px; margin-top: 20px;">Reviewer 2</h4>
+        <p class="author-card-paragraph">
+          Hasil eksperimen menjanjikan. Mohon sertakan pembahasan keterbatasan model dan validasi eksternal.
+        </p>
+
+        <!-- Batas revisi banner -->
+        <div class="author-deadline-banner">
+          <span class="author-deadline-title">Batas revisi</span>
+          <span class="author-deadline-val">${sub.revisionDeadline || '30 Okt 2026'}</span>
+        </div>
+
+        <div style="margin-top: 20px;">
+          <input type="file" id="input-revision-file" accept=".pdf" style="display:none;" />
+          <button class="btn-author-dark" id="btn-upload-revisi">
+            Upload revisi
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>`
+}
+
+// ─────────────────────────────────────────
+// RENDER: FINAL PAPER VIEW 
+// ─────────────────────────────────────────
+function renderFinalPaperView(): string {
+  const sub = submissionsDB.find((s) => s.paperId === selectedPaperId) || submissionsDB[1]
+
+  return `
+  <div class="author-page-container">
+    <div style="margin-bottom: 16px;">
+      <button class="author-btn-back" id="btn-back-to-submissions">
+        ${icons.arrowLeft} Kembali ke My Submissions
+      </button>
+    </div>
+
+    <div class="author-final-columns">
+      <!-- Left Card -->
+      <div class="author-white-card">
+        <div style="margin-bottom: 12px;">
+          <span class="badge-pill badge-accepted">Paper accepted</span>
+        </div>
+        <h2 class="author-card-main-title">${sub.title}</h2>
+        <div class="author-card-subtitle" style="margin-bottom: 24px;">${sub.authors}</div>
+
+        <h3 class="author-card-sec-title" style="margin-bottom: 8px;">Instruksi final paper</h3>
+        <p class="author-card-paragraph" style="color: #475569; margin-bottom: 24px;">
+          Pastikan dokumen mengikuti template konferensi, tidak memiliki komentar aktif, dan memuat biodata singkat seluruh penulis.
+        </p>
+
+        <!-- Dropzone final paper -->
+        <div class="author-upload-dropzone" id="dropzone-final-paper-box" role="button" tabindex="0" style="padding: 30px 20px; margin-bottom: 20px;" title="Klik untuk mengunggah final paper">
+          <input type="file" id="input-final-paper-file" accept=".pdf" style="display:none;" />
+          <div class="author-upload-icon-wrap">
+            ${icons.cloudUpload}
+          </div>
+          <div class="author-upload-maintext">Unggah final paper</div>
+          <div class="author-upload-subtext">PDF, maksimal 10 MB</div>
+          <div class="author-upload-feedback" id="final-paper-file-display" style="display:none;"></div>
+        </div>
+
+        <button class="btn-author-dark" id="btn-kirim-final-paper">
+          Kirim final paper
+        </button>
+      </div>
+
+      <!-- Right Card: Informasi publikasi -->
+      <div class="author-white-card">
+        <h3 class="author-card-sec-title" style="margin-bottom: 22px;">Informasi publikasi</h3>
+
+        <div class="author-pub-group">
+          <span class="author-pub-label">Proceedings</span>
+          <span class="author-pub-val">${sub.publicationInfo?.proceedings || 'ICTI 2026'}</span>
+        </div>
+
+        <div class="author-pub-group">
+          <span class="author-pub-label">ISBN</span>
+          <span class="author-pub-val">${sub.publicationInfo?.isbn || '978-602-456-789-0'}</span>
+        </div>
+
+        <div class="author-pub-group">
+          <span class="author-pub-label">DOI</span>
+          <span class="author-pub-val">${sub.publicationInfo?.doi || 'Segera tersedia'}</span>
+        </div>
+
+        <div class="author-pub-group">
+          <span class="author-pub-label">Deadline</span>
+          <span class="author-pub-val">${sub.publicationInfo?.deadline || '6 Nov 2026'}</span>
+        </div>
+      </div>
+    </div>
+  </div>`
+}
+
+// ─────────────────────────────────────────
+// RENDER: DASHBOARD (AUTHOR / PESERTA)
+// ─────────────────────────────────────────
+function renderDashboardPage(): string {
+  const userName = currentUser ? currentUser.name : 'Rina Ahmad'
+
+  // Header Title & Subtitle matching the active view
+  let pageTitle = 'Dashboard'
+  let pageSubtitle = 'Selamat datang kembali di PubDesk.'
+
+  if (authorCurrentView === 'my-submissions') {
+    pageTitle = 'My Submissions'
+    pageSubtitle = 'Kelola dan pantau status seluruh paper.'
+  } else if (authorCurrentView === 'submit-paper') {
+    pageTitle = 'Submit Paper'
+    pageSubtitle = 'Lengkapi informasi dan unggah manuscript Anda.'
+  } else if (authorCurrentView === 'review-detail') {
+    pageTitle = 'Review Detail'
+    pageSubtitle = 'Lihat catatan reviewer dan tindak lanjut paper.'
+  } else if (authorCurrentView === 'final-paper') {
+    pageTitle = 'Final Paper / Publication'
+    pageSubtitle = 'Selesaikan dokumen final untuk proses publikasi.'
+  }
+
+  // Active states for sidebar
+  const isDashActive = authorCurrentView === 'dashboard'
+  const isSubmissionsActive =
+    authorCurrentView === 'my-submissions' ||
+    authorCurrentView === 'review-detail' ||
+    authorCurrentView === 'final-paper'
+  const isSubmitActive = authorCurrentView === 'submit-paper'
+
+  // Render view body
+  let bodyContent = ''
+  if (authorCurrentView === 'dashboard') {
+    bodyContent = renderDashboardOverview(userName)
+  } else if (authorCurrentView === 'submit-paper') {
+    bodyContent = renderSubmitPaperView(userName)
+  } else if (authorCurrentView === 'my-submissions') {
+    bodyContent = renderMySubmissionsView()
+  } else if (authorCurrentView === 'review-detail') {
+    bodyContent = renderReviewDetailView()
+  } else if (authorCurrentView === 'final-paper') {
+    bodyContent = renderFinalPaperView()
+  }
+
+  return `
   <div class="dashboard-container">
     <!-- SIDEBAR -->
     <aside class="dash-sidebar">
@@ -773,30 +1323,26 @@ function renderDashboardPage(): string {
         PubDesk
       </div>
       <div class="dash-nav">
-        <button class="dash-nav-item active" id="menu-dash">
+        <button class="dash-nav-item ${isDashActive ? 'active' : ''}" id="menu-dash">
           ${icons.dashboard} Dashboard
         </button>
-        <button class="dash-nav-item" id="menu-submissions">
+        <button class="dash-nav-item ${isSubmissionsActive ? 'active' : ''}" id="menu-submissions">
           ${icons.document} My Submissions
         </button>
-        <button class="dash-nav-item" id="menu-submit-paper">
+        <button class="dash-nav-item ${isSubmitActive ? 'active' : ''}" id="menu-submit-paper">
           ${icons.send} Submit Paper
         </button>
         <button class="dash-nav-item" id="menu-profile">
           ${icons.user} Profil
         </button>
-        <div class="dash-nav-divider"></div>
-        <button class="dash-nav-item" id="menu-home-link" style="color:var(--primary);">
-          ${icons.home} Halaman Utama
-        </button>
-        <button class="dash-nav-item" id="menu-logout" style="color:#ef4444;">
+        <button class="dash-nav-item" id="menu-logout">
           ${icons.logout} Logout
         </button>
       </div>
 
       <!-- USER PROFILE FOOTER -->
       <div class="dash-user-profile">
-        <div class="dash-avatar-circle">
+        <div class="dash-avatar-circle" style="background:#334155; color:#ffffff;">
           ${userName.charAt(0)}
         </div>
         <div class="dash-user-info">
@@ -811,97 +1357,21 @@ function renderDashboardPage(): string {
       <!-- TOPBAR -->
       <header class="dash-topbar">
         <div class="dash-topbar-title">
-          <h1>Dashboard</h1>
-          <p>Selamat datang kembali di PubDesk.</p>
+          <h1>${pageTitle}</h1>
+          <p>${pageSubtitle}</p>
         </div>
         <div class="dash-topbar-actions">
           <button class="dash-icon-btn" id="dash-bell-btn" title="Notifikasi">
             ${icons.bell}
-            <span class="dash-icon-badge"></span>
           </button>
           <div class="dash-user-avatar-top" title="${userName}">
-            ${userName.charAt(0)}
           </div>
         </div>
       </header>
 
       <!-- BODY CONTENT -->
       <div class="dash-body">
-        <!-- WELCOME GREETING -->
-        <div class="dash-welcome">
-          <h2>Halo, ${userName}!</h2>
-          <p>Pantau status paper dan aktivitas konferensi Anda.</p>
-        </div>
-
-        <!-- 4 STATS CARDS -->
-        <div class="dash-stats-grid">
-          <div class="dash-stat-card">
-            <div class="dash-stat-icon-wrap">
-              ${icons.document}
-            </div>
-            <div>
-              <div class="dash-stat-number">${totalPaper}</div>
-              <div class="dash-stat-label">Total Paper</div>
-            </div>
-          </div>
-
-          <div class="dash-stat-card">
-            <div class="dash-stat-icon-wrap">
-              ${icons.clock}
-            </div>
-            <div>
-              <div class="dash-stat-number">${underReviewCount}</div>
-              <div class="dash-stat-label">Under Review</div>
-            </div>
-          </div>
-
-          <div class="dash-stat-card">
-            <div class="dash-stat-icon-wrap">
-              ${icons.checkCircle}
-            </div>
-            <div>
-              <div class="dash-stat-number">${acceptedCount}</div>
-              <div class="dash-stat-label">Diterima</div>
-            </div>
-          </div>
-
-          <div class="dash-stat-card">
-            <div class="dash-stat-icon-wrap">
-              ${icons.alertCircle}
-            </div>
-            <div>
-              <div class="dash-stat-number">${revisionCount}</div>
-              <div class="dash-stat-label">Perlu Revisi</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2 COLUMNS: SUBMISSION STATUS & AKTIVITAS -->
-        <div class="dash-grid-2col">
-          <div class="dash-box">
-            <div class="dash-box-header">
-              <h3 class="dash-box-title">Status submission</h3>
-              <a href="#" class="dash-box-link" id="link-view-all-submissions">Lihat semua</a>
-            </div>
-            <div class="submission-list">
-              ${submissionItemsHTML}
-            </div>
-            <div style="margin-top:20px; padding-top:14px; border-top:1px solid #f1f5f9; display:flex; justify-content:flex-end;">
-              <button class="btn btn-primary btn-sm" id="btn-quick-submit" style="display:inline-flex; align-items:center; gap:6px;">
-                ${icons.send} Submit Paper Baru
-              </button>
-            </div>
-          </div>
-
-          <div class="dash-box">
-            <div class="dash-box-header">
-              <h3 class="dash-box-title">Aktivitas terbaru</h3>
-            </div>
-            <div class="activity-list">
-              ${activityItemsHTML}
-            </div>
-          </div>
-        </div>
+        ${bodyContent}
       </div>
     </main>
   </div>`
@@ -912,96 +1382,6 @@ function renderDashboardPage(): string {
 // ─────────────────────────────────────────
 function renderModal(): string {
   if (!activeModal) return ''
-
-  if (activeModal === 'submit-paper') {
-    const confOptions = conferences.map((c) => `<option value="${c.shortName}" ${c.id === currentConf.id ? 'selected' : ''}>${c.shortName} — ${c.title}</option>`).join('')
-    return `
-    <div class="modal-overlay" id="modal-container">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title">Kirim Paper Baru</h3>
-          <button class="modal-close" id="modal-btn-close">&times;</button>
-        </div>
-        <form id="form-new-paper" style="display:flex; flex-direction:column; gap:16px;">
-          <div class="auth-field">
-            <label class="auth-label">Pilih Konferensi Tujuan</label>
-            <select class="auth-input" id="new-paper-conf" required>
-              ${confOptions}
-            </select>
-          </div>
-          <div class="auth-field">
-            <label class="auth-label">Judul Paper / Manuskrip</label>
-            <input type="text" class="auth-input" id="new-paper-title" placeholder="Contoh: Implementasi Deep Learning pada Deteksi Citra..." required />
-          </div>
-          <div class="auth-field">
-            <label class="auth-label">Abstrak Singkat</label>
-            <textarea class="auth-input" id="new-paper-abstract" rows="3" placeholder="Tuliskan ringkasan penelitian Anda..." style="resize:vertical;"></textarea>
-          </div>
-          <div class="auth-field">
-            <label class="auth-label">Unggah Manuskrip (PDF)</label>
-            <input type="file" class="auth-input" accept=".pdf,.doc,.docx" required />
-            <span class="text-xs text-muted">Format yang didukung: PDF, DOCX (Maks. 15MB). Format sesuai template IEEE / ACM.</span>
-          </div>
-          <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:8px;">
-            <button type="button" class="btn btn-secondary btn-sm" id="modal-btn-cancel">Batal</button>
-            <button type="submit" class="btn btn-primary btn-sm">Unggah & Kirim</button>
-          </div>
-        </form>
-      </div>
-    </div>`
-  }
-
-  if (activeModal === 'my-submissions') {
-    const rows = submissionsDB
-      .map(
-        (s) => `
-      <tr style="border-bottom:1px solid #f1f5f9;">
-        <td style="padding:12px 10px; font-weight:600; color:#1e293b;">${s.title}</td>
-        <td style="padding:12px 10px; color:#64748b;">${s.conference}</td>
-        <td style="padding:12px 10px; color:#64748b;">${s.submittedAt}</td>
-        <td style="padding:12px 10px;">
-          <span class="badge-pill ${
-            s.status === 'Accepted'
-              ? 'badge-accepted'
-              : s.status === 'Revision'
-              ? 'badge-revision'
-              : s.status === 'Rejected'
-              ? 'badge-rejected'
-              : 'badge-under-review'
-          }">${s.status}</span>
-        </td>
-      </tr>`
-      )
-      .join('')
-
-    return `
-    <div class="modal-overlay" id="modal-container">
-      <div class="modal-content" style="max-width:680px;">
-        <div class="modal-header">
-          <h3 class="modal-title">Daftar Semua Submission Anda</h3>
-          <button class="modal-close" id="modal-btn-close">&times;</button>
-        </div>
-        <div style="overflow-x:auto;">
-          <table style="width:100%; border-collapse:collapse; font-size:13px; text-align:left;">
-            <thead>
-              <tr style="background:#f8fafc; color:#64748b; font-size:11px; text-transform:uppercase;">
-                <th style="padding:10px;">Judul Paper</th>
-                <th style="padding:10px;">Konferensi</th>
-                <th style="padding:10px;">Waktu</th>
-                <th style="padding:10px;">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${rows}
-            </tbody>
-          </table>
-        </div>
-        <div style="margin-top:20px; display:flex; justify-content:flex-end;">
-          <button class="btn btn-secondary btn-sm" id="modal-btn-cancel">Tutup</button>
-        </div>
-      </div>
-    </div>`
-  }
 
   if (activeModal === 'profile') {
     const u = currentUser || { name: 'Rina Ahmad', email: 'rina@email.com', role: 'author' }
@@ -1187,12 +1567,10 @@ function attachEventListeners() {
 
   const openSubmitAction = () => {
     if (!currentUser) {
-      showToast('Silakan login terlebih dahulu untuk mengirimkan manuskrip.')
-      navigateTo('login')
-    } else {
-      activeModal = 'submit-paper'
-      renderApp()
+      currentUser = usersDB[0]
     }
+    authorCurrentView = 'submit-paper'
+    navigateTo('dashboard')
   }
 
   document.getElementById('btn-submit-detail')?.addEventListener('click', openSubmitAction)
@@ -1241,6 +1619,7 @@ function attachEventListeners() {
     }
 
     showToast(`Selamat datang kembali, ${currentUser.name}!`)
+    authorCurrentView = 'my-submissions'
     navigateTo('dashboard')
   })
 
@@ -1263,28 +1642,29 @@ function attachEventListeners() {
     currentUser = newUser
 
     showToast(`Registrasi akun berhasil! Selamat datang, ${name}.`)
+    authorCurrentView = 'my-submissions'
     navigateTo('dashboard')
   })
 
   // Dashboard Sidebar Menu
   document.getElementById('menu-dash')?.addEventListener('click', () => {
+    authorCurrentView = 'dashboard'
     activeModal = null
     renderApp()
   })
   document.getElementById('menu-submissions')?.addEventListener('click', () => {
-    activeModal = 'my-submissions'
+    authorCurrentView = 'my-submissions'
+    activeModal = null
     renderApp()
   })
   document.getElementById('menu-submit-paper')?.addEventListener('click', () => {
-    activeModal = 'submit-paper'
+    authorCurrentView = 'submit-paper'
+    activeModal = null
     renderApp()
   })
   document.getElementById('menu-profile')?.addEventListener('click', () => {
     activeModal = 'profile'
     renderApp()
-  })
-  document.getElementById('menu-home-link')?.addEventListener('click', () => {
-    navigateTo('home')
   })
   document.getElementById('menu-logout')?.addEventListener('click', () => {
     if (confirm('Apakah Anda yakin ingin keluar dari dashboard?')) {
@@ -1297,15 +1677,255 @@ function attachEventListeners() {
   // Dashboard Actions & Quick Submit
   document.getElementById('link-view-all-submissions')?.addEventListener('click', (e) => {
     e.preventDefault()
-    activeModal = 'my-submissions'
+    authorCurrentView = 'my-submissions'
     renderApp()
   })
   document.getElementById('btn-quick-submit')?.addEventListener('click', () => {
-    activeModal = 'submit-paper'
+    authorCurrentView = 'submit-paper'
     renderApp()
   })
   document.getElementById('dash-bell-btn')?.addEventListener('click', () => {
     showToast('Semua notifikasi paper Anda telah diperbarui.')
+  })
+
+  // Breadcrumb Back button in Review Detail & Final Paper
+  document.getElementById('btn-back-to-submissions')?.addEventListener('click', () => {
+    authorCurrentView = 'my-submissions'
+    renderApp()
+  })
+
+  // My Submissions: Search Input
+  const searchInput = document.getElementById('submissions-search-input') as HTMLInputElement | null
+  searchInput?.addEventListener('input', (e) => {
+    submissionsSearchQuery = (e.target as HTMLInputElement).value
+    const filtered = submissionsDB.filter((sub) => {
+      const q = submissionsSearchQuery.trim().toLowerCase()
+      const matchesSearch = !q || sub.paperId.toLowerCase().includes(q) || sub.title.toLowerCase().includes(q)
+      const matchesStatus = submissionsStatusFilter === 'all' || sub.status === submissionsStatusFilter
+      return matchesSearch && matchesStatus
+    })
+
+    const tbody = document.getElementById('submissions-table-body')
+    if (tbody) {
+      if (filtered.length > 0) {
+        tbody.innerHTML = filtered
+          .map((sub) => {
+            let badgeClass = 'badge-under-review'
+            if (sub.status === 'Accepted') badgeClass = 'badge-accepted'
+            else if (sub.status === 'Revision') badgeClass = 'badge-revision'
+            else if (sub.status === 'Submitted') badgeClass = 'badge-submitted'
+            else if (sub.status === 'Rejected') badgeClass = 'badge-rejected'
+
+            const truncatedTitle = sub.title.length > 27 ? sub.title.slice(0, 25) + '...' : sub.title
+
+            return `
+            <tr class="author-table-row">
+              <td class="author-cell-id">${sub.paperId}</td>
+              <td class="author-cell-title" title="${sub.title}">${truncatedTitle}</td>
+              <td class="author-cell-date">${sub.submittedAt}</td>
+              <td class="author-cell-status">
+                <span class="badge-pill ${badgeClass}">${sub.status}</span>
+              </td>
+              <td class="author-cell-action" style="text-align: right;">
+                <button class="author-btn-action-view" data-paper-id="${sub.paperId}">Lihat</button>
+              </td>
+            </tr>`
+          })
+          .join('')
+        attachSubmissionsRowListeners()
+      } else {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:36px; color:#94a3b8;">Tidak ada submission yang sesuai filter.</td></tr>`
+      }
+    }
+  })
+
+  // My Submissions: Filter Status Select
+  const filterSelect = document.getElementById('submissions-filter-status') as HTMLSelectElement | null
+  filterSelect?.addEventListener('change', (e) => {
+    submissionsStatusFilter = (e.target as HTMLSelectElement).value
+    renderApp()
+  })
+
+  // Attach "Lihat" action listeners
+  function attachSubmissionsRowListeners() {
+    document.querySelectorAll<HTMLButtonElement>('.author-btn-action-view').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const pid = btn.dataset.paperId
+        if (!pid) return
+        selectedPaperId = pid
+        const sub = submissionsDB.find((s) => s.paperId === pid)
+        if (sub && sub.status === 'Accepted') {
+          authorCurrentView = 'final-paper'
+        } else {
+          authorCurrentView = 'review-detail'
+        }
+        renderApp()
+      })
+    })
+  }
+  attachSubmissionsRowListeners()
+
+  // Review Detail actions
+  document.getElementById('btn-unduh-manuscript')?.addEventListener('click', () => {
+    showToast(`Mengunduh manuskrip ${selectedPaperId}...`)
+  })
+
+  const inputRevisionFile = document.getElementById('input-revision-file') as HTMLInputElement | null
+  document.getElementById('btn-upload-revisi')?.addEventListener('click', () => {
+    inputRevisionFile?.click()
+  })
+  inputRevisionFile?.addEventListener('change', () => {
+    const file = inputRevisionFile.files?.[0]
+    if (file) {
+      showToast(`Revisi manuskrip "${file.name}" berhasil diunggah!`)
+      const currentSub = submissionsDB.find((s) => s.paperId === selectedPaperId)
+      if (currentSub) {
+        currentSub.status = 'Under Review'
+      }
+      activityLogDB.unshift({
+        id: 'a' + (activityLogDB.length + 1),
+        title: `Revisi untuk ${selectedPaperId} berhasil diunggah`,
+        time: 'Baru saja',
+      })
+      setTimeout(() => renderApp(), 800)
+    }
+  })
+
+  // Final Paper actions
+  const dropzoneFinal = document.getElementById('dropzone-final-paper-box')
+  const inputFinalFile = document.getElementById('input-final-paper-file') as HTMLInputElement | null
+  const displayFinalFile = document.getElementById('final-paper-file-display')
+
+  dropzoneFinal?.addEventListener('click', () => {
+    inputFinalFile?.click()
+  })
+
+  dropzoneFinal?.addEventListener('dragover', (e) => {
+    e.preventDefault()
+    dropzoneFinal.classList.add('drag-active')
+  })
+  dropzoneFinal?.addEventListener('dragleave', () => {
+    dropzoneFinal.classList.remove('drag-active')
+  })
+  dropzoneFinal?.addEventListener('drop', (e) => {
+    e.preventDefault()
+    dropzoneFinal.classList.remove('drag-active')
+    const files = e.dataTransfer?.files
+    if (files && files.length > 0 && displayFinalFile) {
+      displayFinalFile.style.display = 'inline-flex'
+      displayFinalFile.textContent = `File terpilih: ${files[0].name} (${(files[0].size / 1024).toFixed(1)} KB)`
+    }
+  })
+
+  inputFinalFile?.addEventListener('change', () => {
+    const file = inputFinalFile.files?.[0]
+    if (file && displayFinalFile) {
+      displayFinalFile.style.display = 'inline-flex'
+      displayFinalFile.textContent = `File terpilih: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`
+    }
+  })
+
+  document.getElementById('btn-kirim-final-paper')?.addEventListener('click', () => {
+    showToast('Dokumen final paper berhasil dikirim untuk proses publikasi!')
+    activityLogDB.unshift({
+      id: 'a' + (activityLogDB.length + 1),
+      title: `Final paper ${selectedPaperId} telah dikirim`,
+      time: 'Baru saja',
+    })
+    setTimeout(() => {
+      authorCurrentView = 'my-submissions'
+      renderApp()
+    }, 1000)
+  })
+
+  // Submit Paper View form & file dropzone
+  const dropzoneManuscript = document.getElementById('dropzone-manuscript-box')
+  const inputManuscriptFile = document.getElementById('input-manuscript-file') as HTMLInputElement | null
+  const displayManuscriptFile = document.getElementById('manuscript-file-display')
+
+  dropzoneManuscript?.addEventListener('click', () => {
+    inputManuscriptFile?.click()
+  })
+
+  dropzoneManuscript?.addEventListener('dragover', (e) => {
+    e.preventDefault()
+    dropzoneManuscript.classList.add('drag-active')
+  })
+  dropzoneManuscript?.addEventListener('dragleave', () => {
+    dropzoneManuscript.classList.remove('drag-active')
+  })
+  dropzoneManuscript?.addEventListener('drop', (e) => {
+    e.preventDefault()
+    dropzoneManuscript.classList.remove('drag-active')
+    const files = e.dataTransfer?.files
+    if (files && files.length > 0 && displayManuscriptFile) {
+      displayManuscriptFile.style.display = 'inline-flex'
+      displayManuscriptFile.textContent = `File terpilih: ${files[0].name} (${(files[0].size / 1024).toFixed(1)} KB)`
+    }
+  })
+
+  inputManuscriptFile?.addEventListener('change', () => {
+    const file = inputManuscriptFile.files?.[0]
+    if (file && displayManuscriptFile) {
+      displayManuscriptFile.style.display = 'inline-flex'
+      displayManuscriptFile.textContent = `File terpilih: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`
+    }
+  })
+
+  const formAuthorSubmit = document.getElementById('author-submit-form') as HTMLFormElement | null
+  formAuthorSubmit?.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const userName = currentUser ? currentUser.name : 'Rina Ahmad'
+    const title = (document.getElementById('submit-paper-title') as HTMLInputElement)?.value.trim()
+    const category = (document.getElementById('submit-paper-category') as HTMLSelectElement)?.value
+    const abstract = (document.getElementById('submit-paper-abstract') as HTMLTextAreaElement)?.value.trim()
+    const keywords = (document.getElementById('submit-paper-keywords') as HTMLInputElement)?.value.trim()
+    const author = (document.getElementById('submit-paper-author') as HTMLInputElement)?.value.trim() || userName
+    const affiliation = (document.getElementById('submit-paper-affiliation') as HTMLInputElement)?.value.trim() || 'Universitas Indonesia'
+
+    if (!title) return
+
+    const nextNumber = 1042 + submissionsDB.length + 1
+    const nextPaperId = `PD-${nextNumber}`
+
+    const newSub: Submission = {
+      id: 's' + (submissionsDB.length + 1),
+      paperId: nextPaperId,
+      title,
+      authors: author,
+      affiliation,
+      category: category || 'Artificial Intelligence',
+      conference: 'ICTI 2026',
+      status: 'Under Review',
+      submittedAt: 'Hari ini',
+      abstract,
+      keywords,
+      manuscriptFile: `manuscript_${nextPaperId}.pdf`,
+      reviewerNotes: [
+        {
+          reviewer: 'Catatan reviewer',
+          note: 'Paper telah diterima dan saat ini sedang dalam proses review.',
+        },
+      ],
+      revisionDeadline: '10 Nov 2026',
+      publicationInfo: {
+        proceedings: 'ICTI 2026',
+        isbn: '978-602-456-789-0',
+        doi: 'Segera tersedia',
+        deadline: '20 Nov 2026',
+      },
+    }
+
+    submissionsDB.unshift(newSub)
+    activityLogDB.unshift({
+      id: 'a' + (activityLogDB.length + 1),
+      title: `Paper "${title.slice(0, 30)}..." berhasil dikirim`,
+      time: 'Baru saja',
+    })
+
+    showToast(`Paper "${title}" berhasil disubmit!`)
+    authorCurrentView = 'my-submissions'
+    renderApp()
   })
 
   // Modals: Close Handlers
@@ -1323,35 +1943,6 @@ function attachEventListeners() {
       renderApp()
     }
   })
-
-  // Modal: Submit Paper Form
-  const formNewPaper = document.getElementById('form-new-paper') as HTMLFormElement | null
-  formNewPaper?.addEventListener('submit', (e) => {
-    e.preventDefault()
-    const conf = (document.getElementById('new-paper-conf') as HTMLSelectElement)?.value || currentConf.shortName
-    const title = (document.getElementById('new-paper-title') as HTMLInputElement)?.value.trim()
-
-    if (!title) return
-
-    const newSub: Submission = {
-      id: 's' + (submissionsDB.length + 1),
-      title,
-      conference: conf,
-      status: 'Under Review',
-      submittedAt: 'Baru saja',
-    }
-
-    submissionsDB.unshift(newSub)
-    activityLogDB.unshift({
-      id: 'a' + (activityLogDB.length + 1),
-      title: `Paper "${title.slice(0, 30)}..." berhasil dikirim`,
-      time: 'Baru saja',
-    })
-
-    activeModal = null
-    showToast('Paper Anda berhasil dikirim ke panel review!')
-    renderApp()
-  })
 }
 
 // ─────────────────────────────────────────
@@ -1359,6 +1950,11 @@ function attachEventListeners() {
 // ─────────────────────────────────────────
 if (window.location.hash === '#reviewer' || window.location.search.includes('reviewer')) {
   window.location.href = '/reviewer.html'
+} else if (window.location.hash === '#author' || window.location.search.includes('author')) {
+  currentUser = usersDB[0]
+  currentPage = 'dashboard'
+  authorCurrentView = 'my-submissions'
+  renderApp()
 } else {
   renderApp()
 }

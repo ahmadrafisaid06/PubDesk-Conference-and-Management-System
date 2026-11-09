@@ -219,6 +219,7 @@ body {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  overflow-y: auto;
 }
 
 /* =========================================================
@@ -230,7 +231,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: transparent;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--adm-border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
 .header-title-box h1 {
@@ -296,7 +301,7 @@ body {
    CONTENT VIEW AREA
    ========================================================= */
 .admin-content {
-  padding: 10px 36px 40px;
+  padding: 24px 36px 40px;
   flex: 1;
 }
 

@@ -104,14 +104,15 @@ img { display: block; max-width: 100%; }
 .navbar-logo-icon {
   width: 28px;
   height: 28px;
-  background: var(--primary);
+  background: #1e293b;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
 .navbar-nav {
@@ -1118,16 +1119,16 @@ img { display: block; max-width: 100%; }
 .auth-logo-badge {
   width: 44px;
   height: 44px;
-  background-color: #334155;
+  background-color: #1e293b;
   color: #ffffff;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 20px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 12px;
-  box-shadow: 0 4px 6px -1px rgba(51, 65, 85, 0.2);
+  box-shadow: 0 4px 6px -1px rgba(30, 41, 59, 0.2);
 }
 
 .auth-title {
@@ -1307,14 +1308,15 @@ img { display: block; max-width: 100%; }
 .dash-brand-icon {
   width: 32px;
   height: 32px;
-  background-color: #334155;
+  background-color: #1e293b;
   color: #ffffff;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
 .dash-nav {
@@ -1417,11 +1419,16 @@ img { display: block; max-width: 100%; }
 }
 
 .dash-topbar {
-  padding: 24px 36px 16px;
+  min-height: 76px;
+  padding: 16px 36px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  background: transparent;
+  align-items: center;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
 .dash-topbar-title h1 {
@@ -1487,7 +1494,7 @@ img { display: block; max-width: 100%; }
 }
 
 .dash-body {
-  padding: 8px 36px 40px;
+  padding: 24px 36px 40px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -1832,4 +1839,485 @@ img { display: block; max-width: 100%; }
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================================
+   AUTHOR PORTAL VIEWS (MATCHING SCREENSHOTS)
+   ========================================= */
+
+.author-page-container {
+  width: 100%;
+  max-width: 1060px;
+}
+
+/* Submit Paper Form Card */
+.author-form-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 32px 36px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.author-form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.author-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 20px;
+}
+
+.author-form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.author-form-control {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: #1e293b;
+  background: #ffffff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: inherit;
+}
+
+.author-form-control::placeholder {
+  color: #94a3b8;
+}
+
+.author-form-control:focus {
+  border-color: #94a3b8;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.15);
+}
+
+.author-select {
+  cursor: pointer;
+  appearance: auto;
+}
+
+.author-textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.5;
+}
+
+/* Upload dropzone */
+.author-upload-dropzone {
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 12px;
+  background: #fcfdfd;
+  padding: 36px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 24px 0 28px;
+}
+
+.author-upload-dropzone:hover {
+  border-color: #94a3b8;
+  background: #f8fafc;
+}
+
+.author-upload-dropzone.drag-active {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.author-upload-icon-wrap {
+  color: #64748b;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.author-upload-icon-wrap svg {
+  width: 32px;
+  height: 32px;
+}
+
+.author-upload-maintext {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.author-upload-subtext {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.author-upload-feedback {
+  margin-top: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #0284c7;
+  background: #e0f2fe;
+  padding: 5px 14px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.author-form-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.btn-author-dark {
+  background-color: #334155;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 28px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s, transform 0.05s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-author-dark:hover {
+  background-color: #1e293b;
+}
+
+.btn-author-dark:active {
+  transform: scale(0.99);
+}
+
+.author-btn-outline {
+  background-color: #ffffff;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 9px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.author-btn-outline:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+/* My Submissions Toolbar */
+.author-filter-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.author-search-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.author-search-input {
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: #1e293b;
+  background: #ffffff;
+  font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.author-search-input::placeholder {
+  color: #94a3b8;
+}
+
+.author-search-input:focus {
+  border-color: #94a3b8;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.15);
+}
+
+.author-filter-dropdown-wrapper {
+  position: relative;
+}
+
+.author-filter-dropdown {
+  padding: 10px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: #475569;
+  background: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  min-width: 140px;
+  transition: border-color 0.15s;
+}
+
+.author-filter-dropdown:focus {
+  border-color: #94a3b8;
+  outline: none;
+}
+
+/* Submissions Table */
+.author-table-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.author-submissions-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  text-align: left;
+}
+
+.author-submissions-table thead th {
+  padding: 14px 24px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.author-submissions-table tbody td {
+  padding: 16px 24px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
+  vertical-align: middle;
+}
+
+.author-submissions-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.author-table-row:hover {
+  background-color: #fafbfd;
+}
+
+.author-cell-id {
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.author-cell-title {
+  color: #334155;
+  font-weight: 400;
+}
+
+.author-cell-date {
+  color: #64748b;
+}
+
+.author-btn-action-view {
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+
+.author-btn-action-view:hover {
+  color: #1e293b;
+  text-decoration: underline;
+}
+
+.badge-submitted {
+  background-color: #f1f5f9;
+  color: #64748b;
+}
+
+/* Review Detail & Final Paper 2-Column Grids */
+.author-review-columns {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.author-final-columns {
+  display: grid;
+  grid-template-columns: 1.45fr 0.85fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.author-white-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 28px 30px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.author-card-main-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.author-card-subtitle {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.author-meta-block {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.author-meta-heading {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 2px;
+}
+
+.author-meta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f8fafc;
+}
+
+.author-meta-key {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.author-meta-value {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.author-card-sec-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.author-card-paragraph {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #334155;
+  margin-bottom: 14px;
+}
+
+.author-deadline-banner {
+  background: #ffe4e6;
+  border: 1px solid #fecdd3;
+  border-radius: 8px;
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0 18px;
+}
+
+.author-deadline-title {
+  color: #e11d48;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.author-deadline-val {
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.author-pub-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 16px;
+}
+
+.author-pub-label {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.author-pub-val {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.author-btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 16px;
+  transition: color 0.15s;
+}
+
+.author-btn-back:hover {
+  color: #1e293b;
+}
+
+.author-btn-back svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 768px) {
+  .author-form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .author-review-columns,
+  .author-final-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
 
