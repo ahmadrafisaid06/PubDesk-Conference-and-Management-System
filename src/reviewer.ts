@@ -942,15 +942,6 @@ function renderReviewerLoginPage(): string {
         <p style="font-size:12.5px; color:#64748b; margin-top:4px;">Portal Khusus Mitra Bestari & Reviewer</p>
       </div>
 
-      <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:10px; padding:12px 14px; margin-bottom:20px; font-size:12.5px; color:#0369a1; display:flex; align-items:center; gap:10px; line-height:1.5;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="16" x2="12" y2="12"/>
-          <line x1="12" y1="8" x2="12.01" y2="8"/>
-        </svg>
-        <span>Akun reviewer terdaftar otomatis untuk <strong>Dr. Budi Santoso</strong>. Klik Login untuk langsung masuk.</span>
-      </div>
-
       <form class="auth-form" id="form-reviewer-login">
         <div class="auth-field">
           <label class="auth-label">Email institusi / reviewer</label>
@@ -1051,8 +1042,7 @@ export function renderReviewerApp(containerSelector = '#reviewer-app') {
         <button class="rev-nav-item" id="nav-rev-profile">
           ${revIcons.user} Profil
         </button>
-        <div class="rev-nav-divider"></div>
-        <button class="rev-nav-item" id="nav-rev-logout" style="color:#ef4444;">
+        <button class="rev-nav-item" id="nav-rev-logout">
           ${revIcons.logout} Logout
         </button>
       </nav>
